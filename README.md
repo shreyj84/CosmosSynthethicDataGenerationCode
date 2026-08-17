@@ -30,8 +30,8 @@ Steps 1–3 run unattended across every clip (**phase 1**); steps 4–6 are a se
 
 ```bash
 # Clone
-git clone https://github.com/YOUR_ORG/cosmos-synthetic-data.git
-cd cosmos-synthetic-data
+git clone https://github.com/shreyj84/CosmosSynthethicDataGenerationCode.git
+cd CosmosSynthethicDataGenerationCode
 
 # Setup environment (installs Cosmos Transfer, Cosmos Curate, SAM2, dependencies)
 chmod +x scripts/setup_environment.sh
@@ -176,7 +176,7 @@ See [docs/setup_aws.md](docs/setup_aws.md) for AWS-specific instructions.
 ## Project Structure
 
 ```
-cosmos-synthetic-data/
+CosmosSynthethicDataGenerationCode/
 ├── README.md
 ├── requirements.txt
 ├── .gitignore

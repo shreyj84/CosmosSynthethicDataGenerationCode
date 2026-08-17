@@ -66,8 +66,8 @@ export DATA_ROOT=/data/cosmos
 ssh -i your-key.pem ubuntu@your-instance-ip
 
 # 2. Clone the pipeline repo
-git clone https://github.com/YOUR_ORG/cosmos-synthetic-data.git
-cd cosmos-synthetic-data
+git clone https://github.com/shreyj84/CosmosSynthethicDataGenerationCode.git
+cd CosmosSynthethicDataGenerationCode
 
 # 3. Set tokens and DATA_ROOT
 export HF_TOKEN=your_huggingface_token
