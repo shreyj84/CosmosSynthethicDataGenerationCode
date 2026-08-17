@@ -1,0 +1,31 @@
+# Batch source job: raw multi-minute recordings of pillow-casing / bed-making tasks.
+#
+# Phase 1 (unattended):  python scripts/run_batch_prepare.py --job config/jobs/pillow_casing_batch.yaml
+# Phase 2 (interactive): python scripts/run_interactive_review.py --job config/jobs/pillow_casing_batch.yaml
+#
+# Every field below has a default — see config/jobs/bucket_cleaning_batch.yaml for the
+# full list of optional tuning knobs (reason_num_objects, openai_temperature,
+# sam2_num_points, etc.) shown at their defaults.
+
+input_video_path: /data/raw_videos/pillow_casing/
+output_dir: /data/cosmos_outputs/pillow_casing_batch
+job_name: pillow_casing_batch
+
+curate_splitting_algorithm: transnetv2
+curate_threshold: 0.2
+curate_min_length_s: 2.0
+curate_max_length_s: 4.0
+curate_max_length_mode: stride
+
+reason_model_id: nvidia/Cosmos3-Nano
+
+openai_model: gpt-4o-mini
+max_variations_per_object: 3
+
+guidance: 4
+transfer_weights:
+  edge: 0.5
+  vis: 0.025
+  depth: 0.2
+  seg: 0.175
+disable_guardrails: true

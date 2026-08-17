@@ -1,0 +1,29 @@
+# Core pipeline dependencies
+# Cosmos Transfer and SAM2 have their own venvs — these are for the orchestration layer
+pyyaml>=6.0
+opencv-python>=4.8
+numpy>=1.24
+pillow>=10.0
+torch>=2.0
+matplotlib>=3.7
+
+# GPT-4 Mini prompt generation (optional)
+openai>=1.0
+
+# HuggingFace (for checkpoint management)
+huggingface-hub>=0.20
+
+# Cosmos Reason (src/reason.py) — nvidia/Cosmos3-Nano via Cosmos3OmniForConditionalGeneration.
+# Unpinned here because they weren't pinned in the working environment this was ported
+# from either — this model class is recent enough that a pinned version may already be
+# stale. If loading fails with an import/class-not-found error, try the latest
+# transformers release, or diffusers from git main as below.
+diffusers @ git+https://github.com/huggingface/diffusers.git
+accelerate
+av
+imageio
+imageio-ffmpeg
+transformers
+sentencepiece
+json-repair
+cosmos_guardrail

@@ -1,0 +1,48 @@
+# Batch source job: raw multi-minute recordings of bucket-cleaning tasks.
+#
+# Phase 1 (unattended):  python scripts/run_batch_prepare.py --job config/jobs/bucket_cleaning_batch.yaml
+# Phase 2 (interactive): python scripts/run_interactive_review.py --job config/jobs/bucket_cleaning_batch.yaml
+#
+# input_video_path can be a single long video or a directory of them — every video
+# found gets split into clips by Cosmos Curate. Adjust these two paths to wherever
+# your data actually lives (a local/EBS-mounted directory, or wherever you've synced
+# clips from S3 to — see docs/setup_aws.md).
+
+input_video_path: /data/raw_videos/bucket_cleaning/
+output_dir: /data/cosmos_outputs/bucket_cleaning_batch
+job_name: bucket_cleaning_batch
+
+# Cosmos Curate splitting — see README's Control Weight Reference section for the
+# clip length/fps Cosmos Transfer expects.
+curate_splitting_algorithm: transnetv2
+curate_threshold: 0.2
+curate_min_length_s: 2.0
+curate_max_length_s: 4.0
+curate_max_length_mode: stride
+
+# Cosmos Reason
+reason_model_id: nvidia/Cosmos3-Nano
+# Optional tuning knobs, shown at their defaults — uncomment to override:
+# reason_num_objects: 10        # how many objects to ask the model to identify
+# reason_max_new_tokens: 8192   # generation length cap
+# reason_frame_samples: 30      # frames sampled when picking the representative frame
+# reason_frame_window: 5        # sliding-window size for peak-motion detection
+
+# GPT-4 Mini prompt generation — candidate prompts generated per detected object
+# during phase 1, picked from (or overridden) interactively during phase 2.
+openai_model: gpt-4o-mini
+max_variations_per_object: 3
+# openai_temperature: 0.7
+# openai_max_tokens: 500
+
+# SAM2
+# sam2_num_points: 10   # sample points per mask when seeding video tracking
+
+# Cosmos Transfer defaults (guidance/weights can still be tweaked per-clip later)
+guidance: 4
+transfer_weights:
+  edge: 0.5
+  vis: 0.025
+  depth: 0.2
+  seg: 0.175
+disable_guardrails: true

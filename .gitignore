@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.venv/
+
+# Checkpoints (too large for git)
+*.pt
+*.pth
+*.safetensors
+cosmos_checkpoints/
+
+# Temp files
+/tmp/
+video_frames/
+seg_outputs/
+
+# Outputs
+*.mp4
+outputs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env

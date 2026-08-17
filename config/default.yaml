@@ -1,0 +1,38 @@
+# Global pipeline configuration — paths and settings shared by every job.
+# Per-job configs (config/jobs/*.yaml) may override any tool path; when they leave one
+# blank, it's filled in from here (see src/config.py:resolve_job_paths).
+#
+# All path fields below are commented out because their Python defaults are already
+# derived from the DATA_ROOT env var (default: $HOME/cosmos-data) — see
+# src/config.py's DATA_ROOT / PipelineConfig. That's the one lever to move everything
+# (checkpoints, cosmos-transfer2.5, cosmos-curate) onto a different disk/mount — e.g. a
+# larger EBS data volume instead of the root volume. Uncomment and set explicit paths
+# here only if you need something DATA_ROOT-derived defaults don't give you.
+
+# HuggingFace (set HF_TOKEN env var instead for security — this is only a fallback)
+hf_token: ""
+
+# Checkpoint / model weights storage. Default: ${DATA_ROOT}/checkpoints
+# checkpoint_dir: /data/cosmos/checkpoints
+
+# SAM2
+sam2_config: sam2_hiera_l.yaml
+
+# Cosmos Transfer 2.5. Default: ${DATA_ROOT}/cosmos-transfer2.5
+# cosmos_transfer_repo: /data/cosmos/cosmos-transfer2.5
+# The venv python binary — leave empty to auto-detect ({cosmos_transfer_repo}/.venv/bin/python)
+cosmos_venv_python: ""
+
+# Cosmos Curate. Default: ${DATA_ROOT}/cosmos-curate
+# cosmos_curate_repo: /data/cosmos/cosmos-curate
+
+# Checkpoint download tuning (src/checkpoints.py) — defaults shown are what this
+# pipeline has always used; uncomment to override.
+# sam2_checkpoint_url: https://dl.fbaipublicfiles.com/segment_anything_2/072824/sam2_hiera_large.pt
+# wget_timeout_s: 120
+# hf_api_timeout_s: 30
+# predict_exclude_prefixes: ["auto/", "robot/", "base/pre-trained/", "base/post-trained/"]
+# transfer_exclude_prefixes: ["auto/", "robot/"]
+
+# Device
+device: cuda
